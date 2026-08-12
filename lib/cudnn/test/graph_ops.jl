@@ -13,9 +13,8 @@ using cuDNN:
     output!,
     resample_bwd!,
     resample_fwd!,
-    tensor!
-    tensor!,
     tensor,
+    tensor!,
     CUDNN_DATA_FP8_E4M3,
     CUDNN_DATA_FP8_E8M0,
     CUDNN_TENSOR_REORDERING_F8_128x4
@@ -340,6 +339,8 @@ let
     @test_throws DimensionMismatch block_scale_quantize!(g, hi; block_size=32, block_dim=3,
                                                          dtype=CUDNN_DATA_FP8_E4M3,
                                                          scale_dtype=CUDNN_DATA_FP8_E8M0)
+end
+
 # layer and RMS norm normalize over the dimensions the scale spans; the
 # statistics span the complement and, at inference, are computed on the fly
 function layernorm_ref(x, scale, bias; epsilon)
